@@ -17,18 +17,20 @@ namespace _20210923_SortDelegate
             Console.WriteLine();
         }
 
-        public static void TimeSort(DateTime time)
+        public static void TimeSort(object sender, RememberTimeEventArgs eventArgs)
         {
-            Console.WriteLine("Time: {0}", time);
+            Console.WriteLine("Time: {0}", eventArgs.Tick);
         }
 
-        public static void PositionCheckSort(int i, int j)
+        public static void PositionCheckSort(object sender, PositionValueEventArgs eventArgs)
         {
-            Console.WriteLine("Element Check first: {0}, Element Check second: {1}", i, j);
+            Console.WriteLine("Element Check first: {0}, Element Check second: {1}", 
+                    eventArgs.Position1, eventArgs.Position2);
         }
-        public static void PositionSwapSort(int i, int j)
+        public static void PositionSwapSort(object sender, PositionValueEventArgs eventArgs)
         {
-            Console.WriteLine("Element Swap first: {0}, Element Swap second: {1}", i, j);
+            Console.WriteLine("Element Swap first: {0}, Element Swap second: {1}", 
+                    eventArgs.Position1, eventArgs.Position2);
         }
     }
 }

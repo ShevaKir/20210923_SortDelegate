@@ -18,7 +18,7 @@ namespace _20210923_SortDelegate
         {
             if(_timeStart != null)
             {
-                _timeStart(DateTime.Now);                
+                _timeStart(this, new RememberTimeEventArgs(DateTime.Now.Ticks));                
             }
 
             for (int i = 1; i < _source.Length; i++)
@@ -37,7 +37,7 @@ namespace _20210923_SortDelegate
 
             if (_timeEnd != null)
             {
-                _timeEnd(DateTime.Now);
+                _timeEnd(this, new RememberTimeEventArgs(DateTime.Now.Ticks));
             }
         }
 
@@ -45,8 +45,9 @@ namespace _20210923_SortDelegate
         {
             if(_check != null)
             {
-                _check(j, j - 1);
+                _check(this, new PositionValueEventArgs(j, j - 1));
             }
+
             return (j > 0) && (_source[j - 1] > key);
         }
 
@@ -54,8 +55,10 @@ namespace _20210923_SortDelegate
         {
             if(_swap != null)
             {
-                _swap(i, j);
+                _swap(this, new PositionValueEventArgs(j, j));
             }
+
+            System.Threading.Thread.Sleep(1000);
 
             double temp = elementOne;
             elementOne = elementTwo;

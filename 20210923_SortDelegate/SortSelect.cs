@@ -16,10 +16,9 @@ namespace _20210923_SortDelegate
 
         public override void SortData()
         {
-            System.Threading.Thread.Sleep(1000);
             if (_timeStart != null)
             {
-                _timeStart(DateTime.Now);
+                _timeStart(this, new RememberTimeEventArgs(DateTime.Now.Ticks));
             }
             
             for (int i = 0; i < _source.Length - 1; i++)
@@ -39,31 +38,31 @@ namespace _20210923_SortDelegate
 
             if (_timeEnd != null)
             {
-                _timeEnd(DateTime.Now);
+                _timeEnd(this, new RememberTimeEventArgs(DateTime.Now.Ticks));
             }
             
         }
 
-        private bool Check(int min, int j)
+        private bool Check(int i, int j)
         {
             if(_check != null)
             {
-                _check(min, j);
+                _check(this, new PositionValueEventArgs(i, j));
             }
 
-            System.Threading.Thread.Sleep(200);
+            System.Threading.Thread.Sleep(50);
 
-            return _source[j] < _source[min];
+            return _source[j] < _source[i];
         }
 
         private void Swap(int i, int j)
         {
             if(_swap != null)
             {
-                _swap(i, j);
+                _swap(this, new PositionValueEventArgs(i, j));
             }
 
-            System.Threading.Thread.Sleep(200);
+            System.Threading.Thread.Sleep(50);
 
             double temp = _source[j];
             _source[j] = _source[i];

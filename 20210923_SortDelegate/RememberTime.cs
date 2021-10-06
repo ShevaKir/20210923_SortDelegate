@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace _20210923_SortDelegate
 {
-    delegate void RememberTime(DateTime time);   
+    delegate void RememberTime(object sender, RememberTimeEventArgs eArgs);   
 }

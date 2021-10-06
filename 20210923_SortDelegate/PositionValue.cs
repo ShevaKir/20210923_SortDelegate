@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace _20210923_SortDelegate
 {
-    delegate void PositionValue(int index1, int index2);
+    delegate void PositionValue(object sender, PositionValueEventArgs e);
 }

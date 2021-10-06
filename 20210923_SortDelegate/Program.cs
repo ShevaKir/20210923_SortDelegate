@@ -10,25 +10,37 @@ namespace _20210923_SortDelegate
     {
         static void Main(string[] args)
         {
-            double[] array = new double[10];
+            double[] array = new double[5];
 
             RandomArray.RandomRun(array);
-
+            double[] arrayCopy = (double[])array.Clone();
             UI.ShowArray(array);
 
-            SortSelect sortArray = new SortSelect(array);
-            //sortArray.StartSort(new RememberTime(TimeSort));
-            //sortArray.StopSort(new RememberTime(TimeSort));
-            //sortArray.CheckSort(new PositionValue(PositionCheckSort));
-            //sortArray.SwapSort(new PositionValue(PositionSwapSort));
-            sortArray.StartSort(UI.TimeSort);
-            sortArray.StopSort(UI.TimeSort);
-            sortArray.SwapSort(UI.PositionSwapSort);
-            sortArray.CheckSort(UI.PositionCheckSort);
+            EnterCounter countSwap = new EnterCounter();
+            EnterCounter countCheck = new EnterCounter();
+
+
+            SortInsertion sortArray = new SortInsertion(array);
+            sortArray.Start += UI.TimeSort;
+            sortArray.Start += countCheck.ResetCount;
+            sortArray.Start += countSwap.ResetCount;
+            sortArray.Stop += UI.TimeSort;
+            sortArray.SwapPosition += UI.PositionSwapSort;
+            sortArray.SwapPosition += countSwap.DoIncrement;
+            sortArray.CheckPosition += UI.PositionCheckSort;
+            sortArray.CheckPosition += countCheck.DoIncrement;
+            sortArray.SortData();
+            
+            UI.ShowArray(array);
+            Console.WriteLine(countSwap.Count);
+            Console.WriteLine(countCheck.Count);
+
+
             sortArray.SortData();
 
             UI.ShowArray(array);
-
+            Console.WriteLine(countSwap.Count);
+            Console.WriteLine(countCheck.Count);
             Console.ReadKey();
  
 

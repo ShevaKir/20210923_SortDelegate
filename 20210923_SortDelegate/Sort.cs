@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _20210923_SortDelegate
 {
-    class Sort
+    abstract class Sort
     {
         protected double[] _source;
 
@@ -19,31 +19,79 @@ namespace _20210923_SortDelegate
         {
             _source = array;
         }
-
-        public void StartSort(RememberTime timeStart)
+        
+        public event RememberTime Start
         {
-            _timeStart = timeStart;
+            add
+            {
+                _timeStart += value;
+            }
+            remove
+            {
+                _timeStart -= value;
+            }
         }
 
-        public void StopSort(RememberTime timeStop)
+        public event RememberTime Stop
         {
-            _timeEnd = timeStop;
+            add
+            {
+                _timeEnd += value;
+            }
+            remove
+            {
+                _timeEnd -= value;
+            }
         }
 
-        public void CheckSort(PositionValue check)
+        public event PositionValue CheckPosition
         {
-            _check = check;
+            add
+            {
+                _check += value;
+            }
+            remove
+            {
+                _check -= value;
+            }
         }
 
-        public void SwapSort(PositionValue swap)
+        public event PositionValue SwapPosition
         {
-            _swap = swap;
+            add
+            {
+                _swap += value;
+            }
+            remove
+            {
+                _swap -= value;
+            }
         }
 
-        public virtual void SortData()
-        {
 
-        }
+        //public void StartSort(RememberTime timeStart)
+        //{
+        //    _timeStart = timeStart;
+        //}
+
+        //public void StopSort(RememberTime timeStop)
+        //{
+        //    _timeEnd = timeStop;
+        //}
+
+        //public void CheckSort(PositionValue check)
+        //{
+        //    _check = check;
+        //}
+
+        //public void SwapSort(PositionValue swap)
+        //{
+        //    _swap = swap;
+        //}
+
+
+
+        public abstract void SortData();
 
     }
 }
