@@ -17,7 +17,7 @@ namespace _20210923_SortDelegate
 
         public Sort(double[] array)
         {
-            _source = array;
+            _source = (double[])array.Clone();
         }
         
         public event RememberTime Start
@@ -91,7 +91,24 @@ namespace _20210923_SortDelegate
 
 
 
-        public abstract void SortData();
+        public abstract double[] SortData(Compare compare);
+
+        protected virtual bool Check(double first, double second)
+        {
+            return first > second;
+        }
+
+        protected virtual void Swap(int indexI, int indexJ)
+        {
+            if (_swap != null)
+            {
+                _swap(this, new PositionValueEventArgs(indexI, indexJ));
+            }
+
+            double temp = _source[indexJ];
+            _source[indexJ] = _source[indexI];
+            _source[indexI] = temp;
+        }
 
     }
 }

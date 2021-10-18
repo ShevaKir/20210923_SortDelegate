@@ -14,7 +14,7 @@ namespace _20210923_SortDelegate
 
         }
 
-        public override void SortData()
+        public override double[] SortData(Compare cmp)
         {
             if (_timeStart != null)
             {
@@ -27,7 +27,8 @@ namespace _20210923_SortDelegate
 
                 for (int j = i + 1; j < _source.Length; j++)
                 {
-                    if (Check(min, j))
+                    //if (Check(min, j))
+                    if(cmp(_source[min], _source[j]))
                     {
                         min = j;
                     }
@@ -40,8 +41,11 @@ namespace _20210923_SortDelegate
             {
                 _timeEnd(this, new RememberTimeEventArgs(DateTime.Now.Ticks));
             }
-            
+
+            return _source;
         }
+
+
 
         private bool Check(int i, int j)
         {
@@ -55,18 +59,5 @@ namespace _20210923_SortDelegate
             return _source[j] < _source[i];
         }
 
-        private void Swap(int i, int j)
-        {
-            if(_swap != null)
-            {
-                _swap(this, new PositionValueEventArgs(i, j));
-            }
-
-            System.Threading.Thread.Sleep(50);
-
-            double temp = _source[j];
-            _source[j] = _source[i];
-            _source[i] = temp;
-        }
     }
 }

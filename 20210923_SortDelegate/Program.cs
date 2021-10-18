@@ -13,12 +13,10 @@ namespace _20210923_SortDelegate
             double[] array = new double[5];
 
             RandomArray.RandomRun(array);
-            double[] arrayCopy = (double[])array.Clone();
             UI.ShowArray(array);
 
             EnterCounter countSwap = new EnterCounter();
             EnterCounter countCheck = new EnterCounter();
-
 
             SortInsertion sortArray = new SortInsertion(array);
             sortArray.Start += UI.TimeSort;
@@ -29,23 +27,41 @@ namespace _20210923_SortDelegate
             sortArray.SwapPosition += countSwap.DoIncrement;
             sortArray.CheckPosition += UI.PositionCheckSort;
             sortArray.CheckPosition += countCheck.DoIncrement;
-            sortArray.SortData();
-            
+
+            //передача метода сравнения
+            //sortArray.SortData(IsMoreThan);
+
+            //анонимный метод
+            /*sortArray.SortData(delegate (double first, double second)
+            {
+                return first > second;
+            });*/
+
+            //лямбда
+            double[] arraySort = sortArray.SortData((first, second) => first > second);
+
+
             UI.ShowArray(array);
+            UI.ShowArray(arraySort);
             Console.WriteLine(countSwap.Count);
             Console.WriteLine(countCheck.Count);
 
 
-            sortArray.SortData();
-
-            UI.ShowArray(array);
-            Console.WriteLine(countSwap.Count);
-            Console.WriteLine(countCheck.Count);
             Console.ReadKey();
  
 
         }
 
-        
+
+        public static bool IsMoreThan(double first, double second)
+        {
+            return first > second;
+        }
+
+        public static bool IsLessThan(double first, double second)
+        {
+            return first < second;
+        }
+
     }
 }
